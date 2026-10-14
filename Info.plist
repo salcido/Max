@@ -387,12 +387,6 @@
 	</array>
 	<key>OSAScriptingDefinition</key>
 	<string>Max.sdef</string>
-	<key>SUEnableSystemProfiling</key>
-	<false/>
-	<key>SUFeedURL</key>
-	<string>https://sbooth.org/Max/appcast.xml</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>

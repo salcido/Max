@@ -37,6 +37,7 @@
 
 - (AudioFileTypeID)		fileType;
 - (UInt32)				formatID;
+- (Float64)				encodeSampleRateForInputSampleRate:(Float64)inputSampleRate;
 
 @end
 
@@ -92,7 +93,7 @@
 		//asbd.mSampleRate		= [[settings objectForKey:@"sampleRate"] doubleValue];
 		asbd.mBitsPerChannel	= (UInt32)[[settings objectForKey:@"bitsPerChannel"] unsignedLongValue];
 		
-		asbd.mSampleRate		= [decoder pcmFormat].mSampleRate;			
+		asbd.mSampleRate		= [self encodeSampleRateForInputSampleRate:[decoder pcmFormat].mSampleRate];
 		asbd.mChannelsPerFrame	= [decoder pcmFormat].mChannelsPerFrame;
 
 		// Flesh out output structure for PCM formats
@@ -291,5 +292,69 @@
 
 - (AudioFileTypeID)		fileType		{ return (AudioFileTypeID)[[[[self delegate] encoderSettings] objectForKey:@"fileType"] unsignedLongValue]; }
 - (UInt32)				formatID		{ return (UInt32)[[[[self delegate] encoderSettings] objectForKey:@"formatID"] unsignedLongValue]; }
+
+// Some encoders (e.g. AAC, which tops out at 48 kHz) only accept certain sample rates.
+// If the input rate isn't one of them, pick the highest supported rate that divides it evenly
+// (96/192 kHz -> 48 kHz, 88.2/176.4 kHz -> 44.1 kHz), falling back to the highest rate below it;
+// ExtAudioFile resamples from the client format to the file format.
+- (Float64) encodeSampleRateForInputSampleRate:(Float64)inputSampleRate
+{
+	UInt32		formatID	= [self formatID];
+	UInt32		size		= 0;
+	OSStatus	err;
+
+	if(kAudioFormatLinearPCM == formatID)
+		return inputSampleRate;
+
+	err = AudioFormatGetPropertyInfo(kAudioFormatProperty_AvailableEncodeSampleRates, sizeof(formatID), &formatID, &size);
+	if(noErr != err || 0 == size)
+		return inputSampleRate;
+
+	AudioValueRange *ranges = malloc(size);
+	if(NULL == ranges)
+		return inputSampleRate;
+
+	err = AudioFormatGetProperty(kAudioFormatProperty_AvailableEncodeSampleRates, sizeof(formatID), &formatID, &size, ranges);
+	if(noErr != err) {
+		free(ranges);
+		return inputSampleRate;
+	}
+
+	UInt32		count			= size / sizeof(AudioValueRange);
+	Float64		bestDivisor		= 0;
+	Float64		bestBelow		= 0;
+	Float64		highest			= 0;
+	unsigned	i;
+
+	for(i = 0; i < count; ++i) {
+		// A range of 0 means any rate is supported
+		if(0 == ranges[i].mMinimum && 0 == ranges[i].mMaximum) {
+			free(ranges);
+			return inputSampleRate;
+		}
+		if(inputSampleRate >= ranges[i].mMinimum && inputSampleRate <= ranges[i].mMaximum) {
+			free(ranges);
+			return inputSampleRate;
+		}
+
+		Float64 rate = ranges[i].mMaximum;
+		if(rate > highest)
+			highest = rate;
+		if(rate < inputSampleRate) {
+			if(rate > bestBelow)
+				bestBelow = rate;
+			if(0 == fmod(inputSampleRate, rate) && rate > bestDivisor)
+				bestDivisor = rate;
+		}
+	}
+
+	free(ranges);
+
+	if(0 != bestDivisor)
+		return bestDivisor;
+	if(0 != bestBelow)
+		return bestBelow;
+	return (0 != highest ? highest : inputSampleRate);
+}
 
 @end
