@@ -300,10 +300,9 @@ static ApplicationController *sharedController = nil;
 - (id) handleConvertScriptCommand:(NSScriptCommand *)command
 {
 	id			directParameter			= [command directParameter];
-	Class		directParameterClass	= [directParameter class];
 	
 	@try {
-		if([directParameterClass isEqual:[NSURL class]]) {
+		if([directParameter isKindOfClass:[NSURL class]]) {
 			NSURL	*url	= (NSURL *)directParameter;
 			
 			if([url isFileURL]) {
@@ -311,7 +310,7 @@ static ApplicationController *sharedController = nil;
 			}
 			
 		}
-		else if([directParameterClass isEqual:[NSArray class]]) {
+		else if([directParameter isKindOfClass:[NSArray class]]) {
 			NSArray			*urlArray;
 			NSURL			*url;
 			NSMutableArray	*filenamesArray;
@@ -320,7 +319,7 @@ static ApplicationController *sharedController = nil;
 			filenamesArray	= [NSMutableArray arrayWithCapacity:[urlArray count]];
 			
 			for(url in urlArray) {
-				if([url isFileURL]) {
+				if([url isKindOfClass:[NSURL class]] && [url isFileURL]) {
 					[filenamesArray addObject:[url path]];
 				}
 			}
