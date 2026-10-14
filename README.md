@@ -22,7 +22,7 @@ Max is free software released under the [GNU General Public License](http://www.
 
 # Requirements
 
-macOS 10.7 or greater.
+macOS 11 or greater on Apple silicon.
 
 # Binaries
 
@@ -36,4 +36,14 @@ Bugs can be reported via the [GitHub issue tracker](https://github.com/sbooth/Ma
 
 # Building
 
-Max is built use Xcode 11.
+Max is built with Xcode 26. The third-party audio libraries are not checked in; build them as native arm64 frameworks first:
+
+```sh
+Scripts/build_frameworks.sh
+```
+
+This fetches and patches the sources, builds them, and installs them into `Frameworks/`. Then open `Max.xcodeproj` and build, or run:
+
+```sh
+xcodebuild -project Max.xcodeproj -target Max -configuration Release CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= CODE_SIGN_STYLE=Manual
+```

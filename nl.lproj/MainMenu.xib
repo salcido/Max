@@ -33,11 +33,6 @@
                                     <action selector="showComponentVersions:" target="721" id="731"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zoek naar nieuwere versie…" id="857">
-                                <connections>
-                                    <action selector="checkForUpdates:" target="887" id="888"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="196">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -344,6 +339,5 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        <customObject id="887" userLabel="SUUpdater" customClass="SUUpdater"/>
     </objects>
 </document>

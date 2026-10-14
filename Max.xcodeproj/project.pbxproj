@@ -79,8 +79,6 @@
 		32C614FF12E80CB800F714C9 /* WavPackSettingsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32C614E012E80CB800F714C9 /* WavPackSettingsSheet.xib */; };
 		32C8F0EE10632AB0004AB74F /* GaplessUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C8F0ED10632AB0004AB74F /* GaplessUtilities.m */; };
 		8C0406530B5C584000648158 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C04064E0B5C584000648158 /* InfoPlist.strings */; };
-		8C05F19D0CC2DAA1006E5746 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C05F1810CC2DAA1006E5746 /* Sparkle.framework */; };
-		8C05F19F0CC2DAAC006E5746 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8C05F1810CC2DAA1006E5746 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8C0883620A092EA500CAC5D0 /* AlbumArtDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C0883580A092EA500CAC5D0 /* AlbumArtDefaults.plist */; };
 		8C0883630A092EA500CAC5D0 /* ApplicationControllerDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C0883590A092EA500CAC5D0 /* ApplicationControllerDefaults.plist */; };
 		8C0883680A092EA500CAC5D0 /* MediaControllerDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C08835E0A092EA500CAC5D0 /* MediaControllerDefaults.plist */; };
@@ -260,7 +258,6 @@
 				326D257412DE4D0500767B04 /* ogg.framework in Copy Frameworks */,
 				326D257512DE4D0500767B04 /* shorten.framework in Copy Frameworks */,
 				326D257612DE4D0500767B04 /* sndfile.framework in Copy Frameworks */,
-				8C05F19F0CC2DAAC006E5746 /* Sparkle.framework in Copy Frameworks */,
 				326D257712DE4D0500767B04 /* speex.framework in Copy Frameworks */,
 				326D257812DE4D0500767B04 /* taglib.framework in Copy Frameworks */,
 				326D257912DE4D0500767B04 /* vorbis.framework in Copy Frameworks */,
@@ -495,7 +492,6 @@
 		8C0406500B5C584000648158 /* nb */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Log.strings; sourceTree = "<group>"; };
 		8C0406510B5C584000648158 /* nb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; lineEnding = 0; name = nb; path = nb.lproj/Preferences.strings; sourceTree = "<group>"; };
 		8C0406520B5C584000648158 /* nb */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/UndoRedo.strings; sourceTree = "<group>"; };
-		8C05F1810CC2DAA1006E5746 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		8C0883580A092EA500CAC5D0 /* AlbumArtDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = AlbumArtDefaults.plist; sourceTree = "<group>"; };
 		8C0883590A092EA500CAC5D0 /* ApplicationControllerDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = ApplicationControllerDefaults.plist; sourceTree = "<group>"; };
 		8C08835E0A092EA500CAC5D0 /* MediaControllerDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = MediaControllerDefaults.plist; sourceTree = "<group>"; };
@@ -819,7 +815,6 @@
 				8CBF385509CFA0FE00E89546 /* Carbon.framework in Frameworks */,
 				8CAB36390A04966E001234AC /* AppKit.framework in Frameworks */,
 				8C244AFB0AC6DFEF001334D0 /* Security.framework in Frameworks */,
-				8C05F19D0CC2DAA1006E5746 /* Sparkle.framework in Frameworks */,
 				326D252712DE4CF800767B04 /* cdparanoia.framework in Frameworks */,
 				326D252912DE4CF800767B04 /* cuetools.framework in Frameworks */,
 				326D252B12DE4CF800767B04 /* discid.framework in Frameworks */,
@@ -1388,7 +1383,6 @@
 				326D253A12DE4CF800767B04 /* ogg.framework */,
 				326D253C12DE4CF800767B04 /* shorten.framework */,
 				326D253E12DE4CF800767B04 /* sndfile.framework */,
-				8C05F1810CC2DAA1006E5746 /* Sparkle.framework */,
 				326D254012DE4CF800767B04 /* speex.framework */,
 				326D254212DE4CF800767B04 /* taglib.framework */,
 				326D254412DE4CF800767B04 /* vorbis.framework */,
@@ -2322,7 +2316,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -2357,7 +2351,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
