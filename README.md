@@ -47,3 +47,14 @@ This fetches and patches the sources, builds them, and installs them into `Frame
 ```sh
 xcodebuild -project Max.xcodeproj -target Max -configuration Release CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= CODE_SIGN_STYLE=Manual
 ```
+
+## Building with a newer Xcode (e.g. 27.x)
+
+Newer Xcode releases need a few extra settings. Xcode 27.2 rejects a deployment target below macOS 12.0, and building the default architectures also produces an x86_64 slice that can't link against the arm64-only frameworks. The script's `#!/bin/bash` resolves to the system bash 3.2 (too old) and falls back to `/opt/homebrew/bin/bash`, so if you don't have Homebrew bash, invoke the script with a bash >= 4 explicitly (e.g. from MacPorts):
+
+```sh
+MIN_OS=12.0 bash Scripts/build_frameworks.sh
+xcodebuild -project Max.xcodeproj -target Max -configuration Release ARCHS=arm64 ONLY_ACTIVE_ARCH=YES MACOSX_DEPLOYMENT_TARGET=12.0 CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= CODE_SIGN_STYLE=Manual
+```
+
+The app is produced at `build/Release/Max.app`.
